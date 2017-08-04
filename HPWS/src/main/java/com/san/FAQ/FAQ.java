@@ -9,21 +9,23 @@ import java.sql.Timestamp;
 @Entity
 public class FAQ {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @ManyToOne
     private User user;
     private String faq;
     @Column(columnDefinition = "VARCHAR(1024)")
     private String answer;
-    @OneToOne
+    @ManyToOne
     private FAQCategory faq_category;
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Timestamp faq_created_at;
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private Timestamp faq_updated_at;
+
     public FAQ() {
-        
+
     }
 
     public Integer getId() {

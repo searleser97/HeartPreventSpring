@@ -7,15 +7,17 @@ import java.sql.Timestamp;
 @Table(name = "faq_category")
 public class FAQCategory {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String faq_category;
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Timestamp faq_category_created_at;
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private Timestamp faq_category_updated_at;
+
     public FAQCategory() {
-        
+
     }
 
     public Integer getId() {

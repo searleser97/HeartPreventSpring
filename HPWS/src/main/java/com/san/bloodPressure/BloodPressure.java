@@ -6,15 +6,17 @@ import java.sql.Timestamp;
 @Entity
 public class BloodPressure {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String pressure;
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Timestamp blood_pressure_created_at;
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private Timestamp blood_pressure_updated_at;
+
     public BloodPressure() {
-        
+
     }
 
     public Integer getId() {

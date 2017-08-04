@@ -6,7 +6,8 @@ import java.sql.Timestamp;
 @Entity
 public class Rating {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private Integer rating;
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
@@ -15,7 +16,7 @@ public class Rating {
     private Timestamp rating_updated_at;
 
     public Rating() {
-        
+
     }
 
     public Integer getId() {

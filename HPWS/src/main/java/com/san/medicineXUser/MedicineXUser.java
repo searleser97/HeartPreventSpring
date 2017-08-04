@@ -8,12 +8,13 @@ import java.sql.Timestamp;
 
 @Entity
 @Table(name = "medicine_x_user")
+@IdClass(MedicineXUserPK.class)
 public class MedicineXUser {
 
     @Id
-    private Integer id;
     @ManyToOne
     private User user;
+    @Id
     @ManyToOne
     private Medicine medicine;
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
@@ -22,14 +23,6 @@ public class MedicineXUser {
     private Timestamp medicine_x_user_cupdated_at;
     public MedicineXUser() {
         
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public User getUser() {

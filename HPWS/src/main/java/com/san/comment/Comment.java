@@ -10,7 +10,8 @@ import java.sql.Timestamp;
 @Entity
 public class Comment {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String comment;
     @ManyToOne
@@ -25,7 +26,7 @@ public class Comment {
     private Timestamp comment_updated_at;
 
     public Comment() {
-        
+
     }
 
     public Integer getId() {

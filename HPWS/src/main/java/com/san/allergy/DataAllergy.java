@@ -1,20 +1,20 @@
 package com.san.allergy;
 
-import com.san.userInfo.UserInfo;
+import com.san.tokenUserInfo.TokenUserInfo;
 
 /**
  * Created by san on 12/07/17.
  */
 public class DataAllergy {
     Allergy allergy;
-    UserInfo userInfo;
+    TokenUserInfo tokenUserInfo;
 
     public DataAllergy() {
 
     }
-    public DataAllergy(Allergy allergy, UserInfo userInfo) {
+    public DataAllergy(Allergy allergy, TokenUserInfo tokenUserInfo) {
         this.allergy = allergy;
-        this.userInfo = userInfo;
+        this.tokenUserInfo = tokenUserInfo;
     }
 
     public Allergy getAllergy() {
@@ -25,11 +25,11 @@ public class DataAllergy {
         this.allergy = allergy;
     }
 
-    public UserInfo getUserInfo() {
-        return userInfo;
+    public TokenUserInfo getTokenUserInfo() {
+        return tokenUserInfo;
     }
 
-    public void setUserInfo(UserInfo userInfo) {
-        this.userInfo = userInfo;
+    public void setTokenUserInfo(TokenUserInfo tokenUserInfo) {
+        this.tokenUserInfo = tokenUserInfo;
     }
 }

@@ -1,9 +1,13 @@
 package com.san.user;
 
+import com.google.gson.Gson;
+import com.san.security.Security;
+import com.san.tokenUserInfo.TokenUserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -12,6 +16,7 @@ public class UserRestController {
 	
     @Autowired
     private UserService userService;
+    private Security security = new Security();
 
     /*
     **Return a listing of all the resources
@@ -26,44 +31,44 @@ public class UserRestController {
     **Return one resource
     */
     @PreAuthorize("hasAnyRole('USER')")
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @GetMapping("/{id}")
     public User getOne(@PathVariable Integer id) {
         User user = userService.getOne(id);
         user.getRoles();
         return userService.getOne(id);
     }
-//    @RequestMapping("/role/{email}")
-//    public List<User> getUserRole(String email) {
-//        return userService.getUserRole(email);
-//    }
+
+    @PostMapping("/getJwtoken")
+    public LoginResponse getJwtoken(@RequestBody LoginRequest loginRequest, HttpServletRequest httpServletRequest) {
+        TokenUserInfo tokenUserInfo = userService.getTokenUserInfo(loginRequest, httpServletRequest.getRemoteAddr(), httpServletRequest.getHeader("user-agent"));
+        if (tokenUserInfo == null)
+            return new LoginResponse("Invalid Credentials", null);
+        Gson gson = new Gson();
+        String jwToken = security.encryptAES(gson.toJson(tokenUserInfo));
+        return new LoginResponse("success", jwToken);
+    }
 
     /*
     **Store a newly created resource in storage.
     */
-    @RequestMapping(method = RequestMethod.POST)
-    public boolean add(@RequestBody User user) {
-        return userService.add(user);
-    }
+    @PostMapping
+//    public boolean add(@RequestBody SignUpRequest signUpRequest) {
+//        return userService.add(user);
+//    }
 
     /*
     **Update the specified resource in storage.
     */
-    @RequestMapping(method = RequestMethod.PUT)
-    public boolean update(@RequestBody DataUser dataUser) {
-        return userService.update(dataUser);
-    }
+//    @PutMapping
+//    public boolean update(@RequestBody) {
+//        return true;
+//    }
 
     /*
     **Remove the specified resource from storage.
     */
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @DeleteMapping("/{id}")
     public boolean delete(@PathVariable Integer id) {
         return userService.delete(id);
     }
-
-//    @RequestMapping(value = "/roles/{email}", method = RequestMethod.GET)
-//    public List<Aux> getUserRoles(@PathVariable String email) {
-//        List<Aux> list = userService.getRoles(email);
-//        return list;
-//    }
 }

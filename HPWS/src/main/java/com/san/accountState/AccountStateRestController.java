@@ -21,12 +21,12 @@ public class AccountStateRestController {
 
     @RequestMapping(path = "/test", method = RequestMethod.POST)
     public String test2(@RequestBody TestAux aux) {
-        System.out.println("UserInfo:");
-        System.out.println("\tid: " + aux.getUserInfo().getId());
-        System.out.println("\taccess_token: " + aux.getUserInfo().getAccess_token());
-        System.out.println("\trole: " + aux.getUserInfo().getRole());
-        System.out.println("\tip: " + aux.getUserInfo().getIp());
-        System.out.println("\tagent: " + aux.getUserInfo().getAgent());
+        System.out.println("TokenUserInfo:");
+        System.out.println("\tid: " + aux.getTokenUserInfo().getId());
+        System.out.println("\taccess_token: " + aux.getTokenUserInfo().getAccess_token());
+        System.out.println("\trole: " + aux.getTokenUserInfo().getRoles());
+        System.out.println("\tip: " + aux.getTokenUserInfo().getIp());
+        System.out.println("\tagent: " + aux.getTokenUserInfo().getAgent());
         return "Completed.";
     }
 

@@ -6,15 +6,17 @@ import java.sql.Timestamp;
 @Entity
 public class MessageState {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String message_state;
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Timestamp message_state_created_at;
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private Timestamp message_state_updated_at;
+
     public MessageState() {
-        
+
     }
 
     public Integer getId() {

@@ -3,6 +3,9 @@ package com.san.user;
 import com.san.Role.Role;
 import com.san.accountState.AccountState;
 import com.san.category.Category;
+import com.san.country.Country;
+import com.san.language.Language;
+import com.san.sex.Sex;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -13,15 +16,10 @@ import java.util.Set;
 @Entity
 public class User implements Serializable {
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name = "role_x_user", joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
-    Set<Role> roles;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String username;
     @Column(columnDefinition = "BIT DEFAULT 0")
     private boolean loggedIn;
@@ -33,24 +31,37 @@ public class User implements Serializable {
     private String name;
     @Column(nullable = false)
     private String last_name;
-    @Column(unique = true)
-    private String access_token;
     @Column(nullable = false)
     private String password;
-    @Column(nullable = false)
     private String phone_number;
     private String profile_picture;
     @Column(nullable = false)
-    private char gender;
-    @Column(nullable = false)
-    private Date birthday;
+    private Date birth_date;
     @Column(columnDefinition = "BIT DEFAULT 0")
     private boolean remember_me;
+    @Column(unique = true)
+    private String access_token;
 
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    private Sex sex;
+    @ManyToOne
+    @JoinColumn(nullable = false)
     private Category category;
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(nullable = false)
     private AccountState account_state;
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    private Country country;
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    private Language language;
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "role_x_user", joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles;
 
 
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
@@ -73,22 +84,37 @@ public class User implements Serializable {
         this.password = user.getPassword();
         this.phone_number = user.getPhone_number();
         this.profile_picture = user.getProfile_picture();
-        this.gender = user.getGender();
+        this.sex = user.getSex();
         this.remember_me = user.isRemember_me();
         this.category = user.getCategory();
         this.account_state = user.getAccount_state();
-        this.birthday = user.getBirthday();
+        this.birth_date = user.getBirth_date();
         this.roles = user.getRoles();
         this.user_created_at = user.getUser_created_at();
         this.user_updated_at = user.getUser_updated_at();
     }
 
-    public Set<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<Role> roles) {
+    public User(String username, boolean loggedIn, String email, String gcm_id, String name, String last_name, String access_token, String password, String phone_number, String profile_picture, Date birth_date, boolean remember_me, Sex sex, Language language, Country country, Category category, AccountState account_state, Set<Role> roles, Timestamp user_created_at, Timestamp user_updated_at) {
+        this.username = username;
+        this.loggedIn = loggedIn;
+        this.email = email;
+        this.gcm_id = gcm_id;
+        this.name = name;
+        this.last_name = last_name;
+        this.access_token = access_token;
+        this.password = password;
+        this.phone_number = phone_number;
+        this.profile_picture = profile_picture;
+        this.birth_date = birth_date;
+        this.remember_me = remember_me;
+        this.sex = sex;
+        this.language = language;
+        this.country = country;
+        this.category = category;
+        this.account_state = account_state;
         this.roles = roles;
+        this.user_created_at = user_created_at;
+        this.user_updated_at = user_updated_at;
     }
 
     public Integer getId() {
@@ -179,20 +205,12 @@ public class User implements Serializable {
         this.profile_picture = profile_picture;
     }
 
-    public char getGender() {
-        return gender;
+    public Date getBirth_date() {
+        return birth_date;
     }
 
-    public void setGender(char gender) {
-        this.gender = gender;
-    }
-
-    public Date getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
+    public void setBirth_date(Date birth_date) {
+        this.birth_date = birth_date;
     }
 
     public boolean isRemember_me() {
@@ -201,6 +219,30 @@ public class User implements Serializable {
 
     public void setRemember_me(boolean remember_me) {
         this.remember_me = remember_me;
+    }
+
+    public Sex getSex() {
+        return sex;
+    }
+
+    public void setSex(Sex sex) {
+        this.sex = sex;
+    }
+
+    public Language getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(Language language) {
+        this.language = language;
+    }
+
+    public Country getCountry() {
+        return country;
+    }
+
+    public void setCountry(Country country) {
+        this.country = country;
     }
 
     public Category getCategory() {
@@ -217,6 +259,14 @@ public class User implements Serializable {
 
     public void setAccount_state(AccountState account_state) {
         this.account_state = account_state;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
     public Timestamp getUser_created_at() {

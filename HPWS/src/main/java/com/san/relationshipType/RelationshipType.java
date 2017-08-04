@@ -6,7 +6,8 @@ import java.sql.Timestamp;
 @Entity
 public class RelationshipType {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String relationship_type;
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
@@ -15,7 +16,7 @@ public class RelationshipType {
     private Timestamp relationship_type_updated_at;
 
     public RelationshipType() {
-        
+
     }
 
     public Integer getId() {

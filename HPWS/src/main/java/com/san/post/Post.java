@@ -10,7 +10,8 @@ import java.sql.Timestamp;
 @Entity
 public class Post {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String post;
     @ManyToOne
@@ -26,7 +27,7 @@ public class Post {
     private Timestamp post_updated_at;
 
     public Post() {
-        
+
     }
 
     public Integer getId() {

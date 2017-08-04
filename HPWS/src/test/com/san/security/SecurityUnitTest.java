@@ -1,24 +1,34 @@
 package com.san.security;
 
+import java.util.Scanner;
+
 public class SecurityUnitTest {
-//j4f8LMpitD2tr2JncDwV7exjkzwajpl8GPSSKTgifm23AoN7eTYo4XkUZylGzrhyW7fynXny/i6Jf0DiXrcTHKLfKVMxPR+/bJyg5PxRAAf0pba0N7P9HuU4+95jr5E7K5s6St5ZKdc09Z0MXEFdCw==
+    Security security = new Security();
     public void encryptDecrypt() {
-        Security security = new Security();
+
         String encrypted = security.encryptAES(
                 "{" +
-                        "\"id\":\"1\"," +
-                        "\"access_token\":\"qwerty\"," +
-                        "\"role\":\"ADMIN\"," +
+                        "\"id\":1," +
+                        "\"access_token\":\"myaccess_token\"," +
+                        "\"roles\":[\"USER\",\"DOCTOR\"]," +
                         "\"ip\":\"0:0:0:0:0:0:0:1\"," +
-                        "\"agent\":\"PostmanRuntime/6.1.6\"" +
+                        "\"agent\":\"PostmanRuntime/6.2.5\"," +
+                        "\"language\":\"esMX\"" +
                         "}");
         String decrypted = security.decryptAES(encrypted);
         System.out.println(encrypted);
         System.out.println(decrypted);
     }
 
+    public void decrypt(String encrypted) {
+        System.out.println(security.decryptAES(encrypted));
+    }
+
     public static void main(String args[]) {
         SecurityUnitTest test = new SecurityUnitTest();
-        test.encryptDecrypt();
+        Scanner sc = new Scanner(System.in);
+//        test.encryptDecrypt();
+        System.out.println("Paste encrypted token below to decrypt it and see its contents.");
+        test.decrypt(sc.nextLine());
     }
 }

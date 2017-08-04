@@ -1,53 +1,56 @@
 package com.san.message;
 
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/message")
 public class MessageRestController {
 	
+    @Autowired
+    private MessageService messageService;
+
     /*
     **Return a listing of all the resources
     */
-    @RequestMapping(method = RequestMethod.GET)
-    public String getAll() {
-        return "resources";
+    @GetMapping
+    public List<Message> getAll() {
+        return messageService.getAll();
     }
 
     /*
     **Return one resource
     */
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public String getOne(@PathVariable String id) {
-        return "resource";
+    @GetMapping("/{id}")
+    public Message getOne(@PathVariable Integer id) {
+        return messageService.getOne(id);
     }
 
     /*
     **Store a newly created resource in storage.
     */
-    @RequestMapping(method = RequestMethod.POST)
-    public String add(@RequestBody Message message) {
-        return "stored";
+    @PostMapping
+    public void add(@RequestBody Message message) {
+        messageService.add(message);
     }
 
     /*
     **Update the specified resource in storage.
     */
-    @RequestMapping(method = RequestMethod.PATCH)
-    public String update(@RequestBody Message message) {
-        return "updated";
+    @PatchMapping
+    public void update(@RequestBody Message message) {
+        messageService.update(message);
     }
 
     /*
     **Remove the specified resource from storage.
     */
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public String delete(@PathVariable String id) {
-        return "deleted";
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Integer id) {
+        messageService.delete(id);
     }
 }

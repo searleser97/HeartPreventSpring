@@ -1,11 +1,13 @@
 package com.san.accountState;
 
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
 public class AccountState {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String account_state;
 

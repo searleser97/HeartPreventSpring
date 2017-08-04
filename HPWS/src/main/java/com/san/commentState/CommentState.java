@@ -6,15 +6,17 @@ import java.sql.Timestamp;
 @Entity
 public class CommentState {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String comment_state;
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Timestamp comment_state_created_at;
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private Timestamp comment_state_updated_at;
+
     public CommentState() {
-        
+
     }
 
     public Integer getId() {

@@ -8,28 +8,22 @@ import java.sql.Timestamp;
 
 @Entity
 @Table(name = "bracelet_x_user")
+@IdClass(BraceletXUserPK.class)
 public class BraceletXUser {
 
     @Id
-    private Integer id;
     @ManyToOne
     private User user;
+    @Id
     @ManyToOne
     private Bracelet bracelet;
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Timestamp bracelet_x_user_created_at;
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private Timestamp bracelet_x_user_cupdated_at;
+
     public BraceletXUser() {
-        
-    }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public User getUser() {

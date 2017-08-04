@@ -10,7 +10,8 @@ import java.sql.Timestamp;
 @Entity
 public class Message {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @ManyToOne
     private Relationship relationship;
@@ -25,7 +26,7 @@ public class Message {
     private Timestamp message_updated_at;
 
     public Message() {
-        
+
     }
 
     public Integer getId() {

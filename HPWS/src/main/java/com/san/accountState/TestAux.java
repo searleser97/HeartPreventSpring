@@ -1,11 +1,11 @@
 package com.san.accountState;
 
-import com.san.userInfo.UserInfo;
+import com.san.tokenUserInfo.TokenUserInfo;
 
 public class TestAux {
     private String post;
     private Integer post_type;
-    private UserInfo userInfo;
+    private TokenUserInfo tokenUserInfo;
 
     public TestAux() {
 
@@ -27,11 +27,11 @@ public class TestAux {
         this.post_type = post_type;
     }
 
-    public UserInfo getUserInfo() {
-        return userInfo;
+    public TokenUserInfo getTokenUserInfo() {
+        return tokenUserInfo;
     }
 
-    public void setUserInfo(UserInfo userInfo) {
-        this.userInfo = userInfo;
+    public void setTokenUserInfo(TokenUserInfo tokenUserInfo) {
+        this.tokenUserInfo = tokenUserInfo;
     }
 }

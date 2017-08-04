@@ -8,28 +8,22 @@ import java.sql.Timestamp;
 
 @Entity
 @Table(name = "disease_x_user")
+@IdClass(DiseaseXUserPK.class)
 public class DiseaseXUser {
 
     @Id
-    private Integer id;
     @ManyToOne
     private User user;
+    @Id
     @ManyToOne
     private Disease disease;
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Timestamp disease_x_user_created_at;
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private Timestamp disease_x_user_cupdated_at;
+
     public DiseaseXUser() {
-        
-    }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public User getUser() {

@@ -8,7 +8,8 @@ import java.sql.Timestamp;
 @Entity
 public class IdentificationCard {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @OneToOne
     private User user;
@@ -18,8 +19,9 @@ public class IdentificationCard {
     private Timestamp identification_card_created_at;
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private Timestamp identification_card_updated_at;
+
     public IdentificationCard() {
-        
+
     }
 
     public Integer getId() {

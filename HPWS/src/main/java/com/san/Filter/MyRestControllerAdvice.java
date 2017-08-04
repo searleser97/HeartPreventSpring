@@ -2,7 +2,7 @@ package com.san.Filter;
 
 import com.google.gson.Gson;
 import com.san.security.Security;
-import com.san.userInfo.UserInfo;
+import com.san.tokenUserInfo.TokenUserInfo;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpInputMessage;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -52,9 +52,9 @@ public class MyRestControllerAdvice implements RequestBodyAdvice {
         return null;
     }
 
-    public boolean isTokenUserInfoValid(UserInfo userInfo) {
+    public boolean isTokenUserInfoValid(TokenUserInfo tokenUserInfo) {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
-        if (request.getRemoteAddr().trim().equals(userInfo.getIp().trim()) && request.getHeader("user-agent").trim().equals(userInfo.getAgent().trim()))
+        if (request.getRemoteAddr().trim().equals(tokenUserInfo.getIp().trim()) && request.getHeader("user-agent").trim().equals(tokenUserInfo.getAgent().trim()))
             return true;
         return false;
     }
@@ -74,21 +74,21 @@ public class MyRestControllerAdvice implements RequestBodyAdvice {
         return httpInputMessage;
     }
 
-    public UserInfo decryptJWToken(String jwtoken) {
+    public TokenUserInfo decryptJWToken(String jwtoken) {
         Gson gson = new Gson();
         Security security = new Security();
-        return gson.fromJson(security.decryptAES(jwtoken), UserInfo.class);
+        return gson.fromJson(security.decryptAES(jwtoken), TokenUserInfo.class);
     }
 
     @Override
     public Object afterBodyRead(Object body, HttpInputMessage httpInputMessage, MethodParameter methodParameter, Type type, Class<? extends HttpMessageConverter<?>> aClass) {
 
-        UserInfo userInfo = get(body, "userInfo");
-        if (userInfo != null) {
-            userInfo = decryptJWToken(userInfo.getAccess_token());
-            if (!isTokenUserInfoValid(userInfo))
+        TokenUserInfo tokenUserInfo = get(body, "tokenUserInfo");
+        if (tokenUserInfo != null) {
+            tokenUserInfo = decryptJWToken(tokenUserInfo.getAccess_token());
+            if (!isTokenUserInfoValid(tokenUserInfo))
                 throw new java.lang.Error("Invalid Token");
-            set(body, "userInfo", userInfo);
+            set(body, "tokenUserInfo", tokenUserInfo);
         }
         return body;
     }

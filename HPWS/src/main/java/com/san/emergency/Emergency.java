@@ -9,7 +9,8 @@ import java.sql.Timestamp;
 @Entity
 public class Emergency {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @ManyToOne
     private User user;
@@ -21,8 +22,9 @@ public class Emergency {
     private Timestamp emergency_created_at;
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private Timestamp emergency_updated_at;
+
     public Emergency() {
-        
+
     }
 
     public Integer getId() {

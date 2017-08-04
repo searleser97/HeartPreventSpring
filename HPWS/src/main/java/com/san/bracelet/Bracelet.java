@@ -6,7 +6,8 @@ import java.sql.Timestamp;
 @Entity
 public class Bracelet {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Column(nullable = false)
     private String code;
@@ -16,7 +17,7 @@ public class Bracelet {
     private Timestamp bracelet_updated_at;
 
     public Bracelet() {
-        
+
     }
 
     public Integer getId() {

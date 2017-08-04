@@ -1,53 +1,56 @@
 package com.san.messageState;
 
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/messageState")
 public class MessageStateRestController {
 	
+    @Autowired
+    private MessageStateService messageStateService;
+
     /*
     **Return a listing of all the resources
     */
-    @RequestMapping(method = RequestMethod.GET)
-    public String getAll() {
-        return "resources";
+    @GetMapping
+    public List<MessageState> getAll() {
+        return messageStateService.getAll();
     }
 
     /*
     **Return one resource
     */
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public String getOne(@PathVariable String id) {
-        return "resource";
+    @GetMapping("/{id}")
+    public MessageState getOne(@PathVariable Integer id) {
+        return messageStateService.getOne(id);
     }
 
     /*
     **Store a newly created resource in storage.
     */
-    @RequestMapping(method = RequestMethod.POST)
-    public String add(@RequestBody MessageState messageState) {
-        return "stored";
+    @PostMapping
+    public void add(@RequestBody MessageState messageState) {
+        messageStateService.add(messageState);
     }
 
     /*
     **Update the specified resource in storage.
     */
-    @RequestMapping(method = RequestMethod.PATCH)
-    public String update(@RequestBody MessageState messageState) {
-        return "updated";
+    @PatchMapping
+    public void update(@RequestBody MessageState messageState) {
+        messageStateService.update(messageState);
     }
 
     /*
     **Remove the specified resource from storage.
     */
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public String delete(@PathVariable String id) {
-        return "deleted";
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Integer id) {
+        messageStateService.delete(id);
     }
 }
